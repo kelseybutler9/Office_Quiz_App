@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+  text-align: center;
+  background-color: gray;
+  color: white;
+}
+
+.start-page button, .question-form button, .results-page button, label {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.start-page img {
+  display: block;
+  text-align: center;
+}
+
+#question-label, #results-label, label {
+  display: inline-block;
+  text-align: center;
+}
+
+
+#question-label, #results-label {
+  font-weight: bold;
+}
+
+/*.js-start-page,.js-question-form, .js-results-page {*/
+/*  display: none;*/
+/*}*/
+
+

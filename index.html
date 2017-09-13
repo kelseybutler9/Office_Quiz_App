@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Office Quiz App</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <header role="banner">
+    <h1>The Office: Quiz App</h1>
+  </header>
+  
+  <form class="start-quiz">
+    <!--js-start-page added in once we add in js-->
+        <img src="office - homepage.jpg" alt="start page">
+        <button type="submit">Start the Quiz</button>
+  </form>
+  <label id="question-label">Question</label>
+  <label>out of 10</label>
+
+  <form class="question-form js-question-form">
+
+        <p id="correct-answers">Number of Correct Answers: </p>
+          <p id="incorrect-answers">Number of Incorrect Answers: </p>
+          <button type="submit">Submit Answer</button>
+    </form>
+  
+  <form class="results-page js-results-page">
+    <label id="results-label">Results:</label>
+    <label>out of 10</label>
+    <button type="submit">Start New Quiz</button>
+  </form>
+
+ <script src="//code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
+
+

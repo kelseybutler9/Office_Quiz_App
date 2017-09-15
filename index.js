@@ -1,106 +1,151 @@
-const Questions = [{question: "What is the name of the cat Dwight tries to give Angela", rightAnswer: "Bruce"}, {question: "What is the name of Angela’s cat that Dwight is trying to replace", rightAnswer: "Sprinkles"}, {question: "What ringtone song played repeatedly on Andy's cell phone when Jim hid it in the ceiling at the office", rightAnswer: "Rockin Robin"}, {question: "What is Erin's first name, which she happens to share with a co-worker", rightAnswer: "Kelly"}, {question: "In the season 3 episode 'Grief Counseling' Michael organizes a funeral for which animal", rightAnswer: "Bird"}, {question: "What is the PPC", rightAnswer: "Party Planning Committee"}, {question: "What is the vegetable that Toby switches Creed’s apple with", rightAnswer: "Potato"}, {question: "What was Jim's first prank on the show", rightAnswer: "Jim puts Dwight's stapler in Jello"}, {question: "Just how did Ryan start the fire ", rightAnswer: "A cheese pita in the oven"}, {question: "Who does Michael take to Jamaica with him", rightAnswer: "Jan"}];
-const Answers = [{answer: ["One","Two"], checked: false}];
+const data = [
+{question: "What is the name of the cat Dwight tries to give Angela", rightAnswer: 2, answerEntry: 0, answerArray: ["Sprinkles", "Bruce", "Garbage", "Phyllis"]}, 
+{question: "What is the name of Angela’s cat that Dwight is trying to replace", rightAnswer: 0, answerEntry: 0, answerArray: ["Sprinkles", "George", "Garbage", "Jim"]}, 
+{question: "What ringtone song played repeatedly on Andy's cell phone when Jim hid it in the ceiling at the office", rightAnswer: 1, answerEntry: 0, answerArray: ["Blinded by the Light", "Rockin Robin", "Little Drummer Boy", "Tiny Dancer"]}, 
+{question: "What is Erin's first name, which she happens to share with a co-worker", rightAnswer: 0, answerEntry: 0, answerArray: ["Kelly", "Jan", "Pam", "Phyllis"]}, 
+{question: "In the season 3 episode 'Grief Counseling' Michael organizes a funeral for which animal", rightAnswer: 3, answerEntry: 0, answerArray: ["Dog", "Insect", "Fish", "Bird"]}, 
+{question: "What is the PPC", rightAnswer: 0, answerEntry: 0, answerArray: ["Party Planning Committee", "Peace Party Conference", "Power Pilates Committe", "Party People Club"]}, 
+{question: "What is the vegetable that Toby switches Creed’s apple with", rightAnswer: 2, answerEntry: 0, answerArray: ["Lettuce", "Onion", "Potato", "Grape"]}, 
+{question: "What was Jim's first prank on the show", rightAnswer: 1, answerEntry: 0, answerArray: ["Dresses up as Dwight", "Puts stapler in Jello", "Prank calls Andy", "Convinced Dwight to Purchase a Purse"]}, 
+{question: "Just how did Ryan start the fire (in the second season)", rightAnswer: 0, answerEntry: 0, answerArray: ["Burns a Pita", "His hair catches on fire", "Drops a candle", "Plays with matches"]}, 
+{question: "Who does Michael take to Jamaica with him", rightAnswer: 0, answerEntry: 0, answerArray: ["Jan", "Jim", "Pam", "Holly"]}
+];
 
-let currentQuestion = 1;
+let currentQuestion = 0;
 let numberCorrect = 0;
 let numberIncorrect = 0;
 
-function startNewQuiz() {
-  //when start the quiz is clicked, the js start page class is added to the item, the question list is created
-  $('.start-quiz').submit(function(event) {
+   
+$('.question-form').on('click', '.NextQuestion', function() {
     event.preventDefault();
-    console.log("New Quiz Ran");
+    currentQuestion++;
+     
+    if (currentQuestion !== data.length){
+      $('.js-feedback-form').remove();
+      $('.feedback-result').toggleClass('js-feedback-result')
+      renderQuestionForm(data);
+    }
+    else {
+      console.log('else ran');
+      $('.js-feedback-form').remove();
+      $('.feedback-result').toggleClass('js-feedback-result');
+      $('.question-form').toggleClass('js-question-form');
+      $('.results-page').toggleClass('js-results-page');
+      $('.question-label').toggleClass('js-question-label');
+      renderResultsPage();
+    }
+});
+
+function startNewQuiz() {
+  $('.start-quiz-button').click(function(event) {
+    event.preventDefault();
     $('.start-quiz').toggleClass('js-start-page');
+    $('.question-label').toggleClass('js-question-label');
+    $('.question-form').toggleClass('js-question-form');
     renderQuestionForm();
   });
 }
-function restartQuiz() {
-  //when restart the quiz is clicked, the js restart page class is added to the item, the question list is created
-  $('.results-page').submit(function(event) {
-    event.preventDefault();
-    console.log("Restart Quiz Ran");
-    $('.results-page').toggleClass('js-results-page');
-    $('.start-quiz').toggleClass('js-start-page');
-    currentQuestion = 1;
-    numberIncorrect = 0;
-    numberCorrect = 0;
-  });
-}
-// function handleItemCheckClicked() {
-//   $('.js-shopping-list').on('click', `.js-item-toggle`, event => {
-   
 
-// function checkAnswerEntry() {
-//   $("js-answers-list").on('click','REPLACE', event => {
-//       //grab the item that was clicked 
-//       //check the answer entry of it and compare to the right answer
-        //call answerResult(answer)
-//   })
-//   
-    
-//   //update correct answer and incorrect answer
-//   if (currentQuestion !== 10)
-//     {
-//       updateCurrentQuestion();
-//     }
-//   else
-//     renderResultsPage();
-//   
-// }
-function answerResult(answer){
-  //check if the entered answer is correct and return true or false'
-  return true;
-}
-function updateCurrentQuestion() {
-  currentQuestion += 1;
+function renderQuestionForm() {
+  let questionString = createQuestionString();
+  let AnswersString = createAnswerListString();
+  $('.question-number').empty();
+  $('.question-number').append(currentQuestion + 1);
+  $('.new-question').empty();
+  $('.new-question').append(questionString + AnswersString);
+  $('.correct-answers').empty();
+  $('.incorrect-answers').empty();
+  $('.correct-answers').append('Number of Correct Answers: ' + numberCorrect);
+  $('.incorrect-answers').append('Number of Incorrect Answers: ' + numberIncorrect);
+  checkAnswerEntry();
 }
 
 function createAnswerListString() {
-  currentAnswers = Answers[currentQuestion - 1].answer;
-  //console.log(currentAnswers);
   let currentAnswersString = "";
-  currentAnswers.map(function(item){
+  data[currentQuestion].answerArray.map(function(item){
     currentAnswersString += "<label class=js-answer-item><input type='radio' name='answerOption' required value="+ item + "><span>"+ item + "</span></label>";
   });
-  console.log(currentAnswersString);
   return currentAnswersString;
-  //update to return the full string
 }
 
 function createQuestionString() {
-  questionText = Questions[currentQuestion - 1].question;
-  string = "<h3 class='js-question-text'>" + currentQuestion + ". " + questionText + "?</h3>";
-  console.log(string);
+  console.log(currentQuestion);
+  questionText = data[currentQuestion].question;
+  question = currentQuestion + 1;
+  string = "<p class='js-question-text'>" + question + ". " + questionText + "?</p>";
   return string;
 }
 
-function renderQuestionForm(AnswersArray) {
-  let questionString = createQuestionString();
-  let AnswersString = createAnswerListString();
-  //add question number div to label...currentQuestion
-  //add in question under label
-  //add in answers for question
-  //add in number correct...need to run check answer entry
-  //add in number incorrect
-  return "renderQuestionForm ran";
+function checkAnswerEntry() {
+  $('.question-form input').on('change', function() {
+    let answer = $(".question-form input:radio[name='answerOption']");
+    let selectedIndex = answer.index(answer.filter(':checked'));
+    console.log(selectedIndex);
+    console.log(answer);
+    data[currentQuestion].answerEntry = selectedIndex;
+    result = answerResult(selectedIndex);
+    renderFeedbackForm(result);
+  });
 }
 
-function renderFeedbackForm() {
-  return "renderFeedbackForm ran";
+function renderFeedbackForm(result) {
+  if (result){
+      feedbackString = '<div class= "feedback-form js-feedback-form"><img src="https://i.imgflip.com/13ju2z.jpg" alt="correct-image"><p>You answered Correctly!</p><button class="NextQuestion">Next Question</button><div class="space></div></div>'
+  }
+  else {
+    feedbackString = '<div class= "js-feedback-form"><img src="https://4.bp.blogspot.com/-CYqggOWYaSk/VZNyJVJmGlI/AAAAAAAAEfQ/V8k5dCubYJY/s320/i%2Bunderstand%2Bnothing.jpg" alt="incorrect-image"><p>You answered incorrectly!</p><button class="NextQuestion">Next Question</button><div class=space></div></div>'
+  }
+  $('.feedback-result').toggleClass('js-feedback-result');
+  $('.feedback-result').empty();
+  $('.feedback-result').append(feedbackString);
+}
+
+function answerResult(answer){
+  console.log(answer);
+  if(answer === data[currentQuestion].rightAnswer){
+    updateCorrectIncorrectAnswers(true);
+    return true;
+  }
+  else {
+    updateCorrectIncorrectAnswers(false);
+    return false;    
+  }
+}
+
+function updateCorrectIncorrectAnswers(result) {
+  if (result){
+    numberCorrect += 1;
+  }
+  else {
+    numberIncorrect += 1;
+  }
 }
 
 function renderResultsPage() {
-  return null;
+  $('.correct-number-label').empty();
+  $('.correct-number-label').append(numberCorrect);
+  resultsString = '';
+  data.forEach(function(item, index){
+    resultsString += '<div class="results-list-item"><p>Question: ' + item.question + '?</p><p>Your Answer: ' + item.answerArray[item.answerEntry] + '</p><p>Correct Answer: ' + item.answerArray[item.rightAnswer] + '</p></div>';
+  });
+  $('.results-list').empty();
+  $('.results-list').append(resultsString);  
+}
+
+function restartQuiz() {
+  $('.restart-quiz-button').click(function(event) {
+    event.preventDefault();
+    $('.results-page').toggleClass('js-results-page');
+    $('.start-quiz').toggleClass('js-start-page');
+    numberIncorrect = 0;
+    numberCorrect = 0;
+    currentQuestion = 0;
+  });
 }
 
 function handleQuiz(){
   startNewQuiz();
-  renderQuestionForm();
-  //checkAnswerEntry();
-  createAnswerListString();
-  renderFeedbackForm();
-  createQuestionString();
-  //answerResult();
+  restartQuiz();
 }
 
 $(handleQuiz());

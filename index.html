@@ -2,42 +2,49 @@
 <html lang="en">
 <head>
   <title>Office Quiz App</title>
+  <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Helvetica" rel="stylesheet">
 
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
   <header role="banner">
-    <h1>The Office: Quiz App</h1>
+    <img src='http://az616578.vo.msecnd.net/files/2016/09/19/6360992326982306541566992591_636066438722789281-1740023957_the%20office%20header.jpg' alt='header-image'>
+    <h1 id='left-header'>The Office</h1>
+    <h1 id='right-header'>Quiz App</h1>
   </header>
   
-  <form class="start-quiz">
-    <!--js-start-page added in once we add in js-->
-        <img src="office - homepage.jpg" alt="start page">
-        <button type="submit">Start the Quiz</button>
-  </form>
-  <label id="question-label">Question</label>
-  <label>out of 10</label>
+  <div class="start-quiz">
+      <button class="start-quiz-button">Start the Quiz</button>
+  </div>
 
   <form class="question-form js-question-form">
-
-        <p id="correct-answers">Number of Correct Answers: </p>
-          <p id="incorrect-answers">Number of Incorrect Answers: </p>
-          <button type="submit">Submit Answer</button>
-    </form>
-  
-  <form class="results-page js-results-page">
-    <label id="results-label">Results:</label>
-    <label>out of 10</label>
-    <button type="submit">Start New Quiz</button>
+      <label class="question-label js-question-label">Question
+      <label class="question-number">0</label>
+      <label>out of 10</label>
+      </label>
+      <div class='new-question js-new-question'></div>
+      <div class="feedback-result js-feedback-result"></div>
+      <div class="question-tally-results">
+        <p class="correct-answers"></p>
+      <p class="incorrect-answers"></p>
+    </div> 
   </form>
+  
+  <div class="results-page js-results-page">
+    <label class="results-label">Results:
+      <label class="correct-number-label">0</label>
+      <label>out of 10</label>
+    </label>
+    <div class='results-list'></div>
+    <button class="restart-quiz-button">Start New Quiz</button>
+  </div>
 
- <script src="//code.jquery.com/jquery.min.js"></script>
+ <script src="https://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
-
 
